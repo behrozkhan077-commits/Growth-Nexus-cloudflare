@@ -81,20 +81,23 @@ function Index() {
     const payload = Object.fromEntries(new FormData(form).entries());
     setSending(true);
 
-    fetch("https://formsubmit.co/ajax/growthnexus.45@gmail.com", {
+    fetch("https://script.google.com/macros/s/AKfycbz45s5vLjPaxw_7HWpBZizdEb72elk_7EE8_xR2Zc9gxa7nZ7UTt-Sc0Y3OX4BYFo6J/exec", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
+        "Content-Type": "text/plain;charset=utf-8",
       },
       body: JSON.stringify({
-        ...payload,
-        _subject: "New Growth Nexus enquiry",
-        _replyto: payload.email,
+        name: payload.name,
+        email: payload.email,
+        service: payload.service,
+        message: payload.message,
       }),
     })
-      .then((response) => {
-        if (!response.ok) throw new Error("Form submission failed");
+      .then(async (response) => {
+        const result = await response.json();
+        if (!response.ok || !result.success) {
+          throw new Error(result.error || "Form submission failed");
+        }
         setSent(true);
         form.reset();
       })
