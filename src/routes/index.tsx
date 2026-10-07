@@ -79,35 +79,28 @@ function Index() {
 
     const form = e.currentTarget;
     const payload = Object.fromEntries(new FormData(form).entries());
-    setSending(true);
 
-    fetch("https://script.google.com/macros/s/AKfycbz45s5vLjPaxw_7HWpBZizdEb72elk_7EE8_xR2Zc9gxa7nZ7UTt-Sc0Y3OX4BYFo6J/exec", {
-      method: "POST",
-      headers: {
-        "Content-Type": "text/plain;charset=utf-8",
-      },
-      body: JSON.stringify({
-        name: payload.name,
-        email: payload.email,
-        service: payload.service,
-        message: payload.message,
-      }),
-    })
-      .then(async (response) => {
-        const result = await response.json();
-        if (!response.ok || !result.success) {
-          throw new Error(result.error || "Form submission failed");
-        }
-        setSent(true);
-        form.reset();
-      })
-      .catch(() => {
-        setSent(false);
-        alert("We couldn't send your message. Please try again once.");
-      })
-      .finally(() => {
-        setSending(false);
-      });
+    const queued = navigator.sendBeacon(
+      "https://script.google.com/macros/s/AKfycbz45s5vLjPaxw_7HWpBZizdEb72elk_7EE8_xR2Zc9gxa7nZ7UTt-Sc0Y3OX4BYFo6J/exec",
+      new Blob(
+        [JSON.stringify({
+          name: payload.name,
+          email: payload.email,
+          service: payload.service,
+          message: payload.message,
+        })],
+        { type: "text/plain;charset=utf-8" }
+      )
+    );
+
+    if (!queued) {
+      setSent(false);
+      alert("We couldn't send your message. Please try again.");
+      return;
+    }
+
+    setSent(true);
+    form.reset();
   };
 
   const whatsappHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi Growth Nexus, I'd like to discuss a campaign.")}`;
