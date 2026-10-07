@@ -72,28 +72,29 @@ function Index() {
     return () => io.disconnect();
   }, []);
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
+    const payload = Object.fromEntries(data.entries());
 
-    try {
-      const response = await fetch("https://formsubmit.co/ajax/growthnexus.45@gmail.com", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-        },
-        body: data,
+    fetch("https://formsubmit.co/ajax/growthnexus.45@gmail.com", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(payload),
+    })
+      .then(async (response) => {
+        if (!response.ok) throw new Error("Form submission failed");
+        setSent(true);
+        form.reset();
+      })
+      .catch(() => {
+        setSent(false);
+        alert("Unable to send your message right now. Please try again or contact us on WhatsApp.");
       });
-
-      if (!response.ok) throw new Error("Form submission failed");
-
-      setSent(true);
-      form.reset();
-    } catch {
-      setSent(false);
-      alert("Unable to send your message right now. Please try again or contact us on WhatsApp.");
-    }
   };
 
   const whatsappHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi Growth Nexus, I'd like to discuss a campaign.")}`;
