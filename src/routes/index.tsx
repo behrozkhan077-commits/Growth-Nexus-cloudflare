@@ -28,7 +28,7 @@ import process4 from "@/assets/process-4-scale.jpeg";
 const WHATSAPP_NUMBER = "971527017089"; // international format, no +
 const PHONE_DISPLAY = "+971 52 701 7089";
 const PHONE_TEL = "+971527017089";
-const EMAIL = "growthnexus.45@gmail.com";
+const EMAIL = "growthnexusuae@gmail.com";
 const FACEBOOK_URL = "https://www.facebook.com/share/1H4TYWd15T/";
 
 export const Route = createFileRoute("/")({
