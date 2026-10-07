@@ -662,9 +662,9 @@ function Index() {
               <select name="service" className="mt-1 w-full rounded-lg px-4 py-3 border focus:outline-none" style={{ borderColor: "var(--gn-border)", background: "var(--gn-input)", color: "var(--gn-txt-0)" }}>
                 <option>Meta Ads Management</option>
                 <option>Lead Generation</option>
-                <option>Creative Design</option>
-                <option>Full Growth System</option>
-                <option>Audit & Strategy</option>
+                <option>Ad Creative Strategy</option>
+                <option>Campaign Setup & Optimization</option>
+                <option>Meta Ads Audit & Strategy</option>
               </select>
             </div>
             <div>
