@@ -38,6 +38,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {
@@ -74,9 +75,11 @@ function Index() {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (sending) return;
+
     const form = e.currentTarget;
-    const data = new FormData(form);
-    const payload = Object.fromEntries(data.entries());
+    const payload = Object.fromEntries(new FormData(form).entries());
+    setSending(true);
 
     fetch("https://formsubmit.co/ajax/growthnexus.45@gmail.com", {
       method: "POST",
@@ -84,16 +87,23 @@ function Index() {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify({
+        ...payload,
+        _subject: "New Growth Nexus enquiry",
+        _replyto: payload.email,
+      }),
     })
-      .then(async (response) => {
+      .then((response) => {
         if (!response.ok) throw new Error("Form submission failed");
         setSent(true);
         form.reset();
       })
       .catch(() => {
         setSent(false);
-        alert("Unable to send your message right now. Please try again or contact us on WhatsApp.");
+        alert("We couldn't send your message. Please try again once.");
+      })
+      .finally(() => {
+        setSending(false);
       });
   };
 
@@ -666,7 +676,7 @@ function Index() {
               <textarea required name="message" rows={4} className="mt-1 w-full rounded-lg px-4 py-3 border focus:outline-none" style={{ borderColor: "var(--gn-border)", background: "var(--gn-input)", color: "var(--gn-txt-0)" }} placeholder="Tell us about your business and goals..." />
             </div>
             <button type="submit" className="gn-btn-primary w-full justify-center">
-              {sent ? "Message Sent ✓" : "Send Message"}
+              {sending ? "Sending…" : sent ? "Message Sent ✓" : "Send Message"}
             </button>
             <p className="text-xs text-center" style={{ color: "var(--gn-txt-1)" }}>
               Prefer instant? <a href={whatsappHref} target="_blank" rel="noreferrer" className="underline">Message us on WhatsApp</a>.
