@@ -72,16 +72,28 @@ function Index() {
     return () => io.disconnect();
   }, []);
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const f = new FormData(e.currentTarget);
-    const name = String(f.get("name") || "");
-    const email = String(f.get("email") || "");
-    const service = String(f.get("service") || "");
-    const message = String(f.get("message") || "");
-    const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0AService: ${service}%0D%0A%0D%0A${encodeURIComponent(message)}`;
-    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent("New enquiry from " + name)}&body=${body}`;
-    setSent(true);
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/growthnexus.45@gmail.com", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+        },
+        body: data,
+      });
+
+      if (!response.ok) throw new Error("Form submission failed");
+
+      setSent(true);
+      form.reset();
+    } catch {
+      setSent(false);
+      alert("Unable to send your message right now. Please try again or contact us on WhatsApp.");
+    }
   };
 
   const whatsappHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi Growth Nexus, I'd like to discuss a campaign.")}`;
@@ -627,7 +639,7 @@ function Index() {
           <form onSubmit={onSubmit} className="gn-glass rounded-3xl p-8 space-y-4 gn-reveal" style={{ transitionDelay: "0.1s" }}>
             <h3 className="gn-display text-2xl font-semibold">Send us a message</h3>
             <p className="text-sm" style={{ color: "var(--gn-txt-1)" }}>
-              Fill the form — it'll open your email app to send us the details.
+              Send your details directly to our inbox. No email app is required.
             </p>
 
             <div>
@@ -653,7 +665,7 @@ function Index() {
               <textarea required name="message" rows={4} className="mt-1 w-full rounded-lg px-4 py-3 border focus:outline-none" style={{ borderColor: "var(--gn-border)", background: "var(--gn-input)", color: "var(--gn-txt-0)" }} placeholder="Tell us about your business and goals..." />
             </div>
             <button type="submit" className="gn-btn-primary w-full justify-center">
-              {sent ? "Opening your email app…" : "Send Message"}
+              {sent ? "Message Sent ✓" : "Send Message"}
             </button>
             <p className="text-xs text-center" style={{ color: "var(--gn-txt-1)" }}>
               Prefer instant? <a href={whatsappHref} target="_blank" rel="noreferrer" className="underline">Message us on WhatsApp</a>.
