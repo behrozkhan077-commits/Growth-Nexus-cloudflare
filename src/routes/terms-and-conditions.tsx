@@ -14,7 +14,7 @@ function TermsAndConditions() {
           <h1 className="mt-3 text-4xl font-bold tracking-tight md:text-5xl">Terms &amp; Conditions</h1>
           <p className="mt-4 text-sm text-muted-foreground">Last updated: October 13, 2026</p>
         </header>
-        <article className="prose prose-slate mt-10 max-w-none dark:prose-invert">
+        <article className="gn-legal-content mt-10 max-w-none">
           <h2>1. Introduction</h2>
           <p>Welcome to Growth Nexus. These Terms &amp; Conditions govern your access to and use of <a href="https://growthnexusuae.com">growthnexusuae.com</a> and the digital marketing services offered by Growth Nexus.</p>
           <p>Our services include Meta Ads management, lead generation, ad creative strategy, campaign setup and optimization, and Meta Ads audits and strategy. Growth Nexus serves clients internationally and does not limit its services to a specific country or region.</p>
