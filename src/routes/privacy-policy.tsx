@@ -14,7 +14,7 @@ function PrivacyPolicy() {
           <h1 className="mt-3 text-4xl font-bold tracking-tight md:text-5xl">Privacy Policy</h1>
           <p className="mt-4 text-sm text-muted-foreground">Last updated: October 13, 2026</p>
         </header>
-        <article className="prose prose-slate mt-10 max-w-none dark:prose-invert">
+        <article className="gn-legal-content mt-10 max-w-none">
           <h2>1. Introduction</h2>
           <p>Growth Nexus respects your privacy and is committed to protecting the personal information you share with us. This Privacy Policy explains how we collect, use, store, and disclose personal information when you visit <a href="https://growthnexusuae.com">growthnexusuae.com</a>, submit an inquiry, communicate with us, or engage our digital marketing services.</p>
           <p>Growth Nexus provides digital marketing and performance advertising services to clients internationally. This policy applies to visitors, prospective clients, and clients who interact with our website or services.</p>
