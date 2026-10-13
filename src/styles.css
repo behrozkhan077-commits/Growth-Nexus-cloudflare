@@ -329,3 +329,23 @@
     50% { transform: scaleY(1); opacity: 1; }
   }
 }
+
+
+/* Legal policy pages */
+.gn-legal-content {
+  color: var(--gn-txt-1, #64748b);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+.gn-legal-content h2 {
+  margin-top: 2.25rem;
+  margin-bottom: 0.75rem;
+  color: var(--gn-txt-0, #0f172a);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+.gn-legal-content p { margin: 0.75rem 0; }
+.gn-legal-content ul { margin: 0.75rem 0 1rem; padding-left: 1.5rem; list-style: disc; }
+.gn-legal-content li { margin: 0.35rem 0; padding-left: 0.15rem; }
+.gn-legal-content a { color: var(--gn-accent, #d97706); text-decoration: underline; text-underline-offset: 3px; }
