@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import logoAsset from "@/assets/growth-nexus-logo-v2.png";
 import heroVideo from "@/assets/hero-video.mp4";
@@ -711,8 +711,8 @@ function Index() {
           <div>
             <div className="gn-mono text-[11px] tracking-widest mb-3" style={{ color: "var(--gn-txt-0)" }}>LEGAL</div>
             <ul className="space-y-2 text-sm">
-              <li><a href="#privacy" className="hover:underline">Privacy Policy</a></li>
-              <li><a href="#terms" className="hover:underline">Terms and Conditions</a></li>
+              <li><Link to="/privacy-policy" className="hover:underline">Privacy Policy</Link></li>
+              <li><Link to="/terms-and-conditions" className="hover:underline">Terms and Conditions</Link></li>
             </ul>
           </div>
         </div>
